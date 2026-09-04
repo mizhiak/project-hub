@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目台账</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">📋 项目台账</div>
+  <input id="q" type="search" placeholder="搜索项目 / 客户 / 备注…">
+  <select id="statusFilter">
+    <option value="">全部状态</option>
+    <option>未标记</option><option>进行中</option><option>已完成</option>
+    <option>暂停</option><option>已交付</option>
+  </select>
+  <select id="typeFilter">
+    <option value="">全部类型</option>
+    <option>客户项目</option><option>开发项目</option>
+    <option>内部事务</option><option>归档</option>
+  </select>
+  <button id="refresh" title="重新扫描">⟳ 刷新</button>
+</header>
+<main id="main"><div class="empty">加载中…</div></main>
+
+<!-- 详情弹窗 -->
+<div id="mask" class="mask hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <span id="mTitle"></span>
+      <button class="x" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form">
+        <label>类型
+          <select id="mType">
+            <option>客户项目</option><option>开发项目</option>
+            <option>内部事务</option><option>归档</option>
+          </select>
+        </label>
+        <label>状态
+          <select id="mStatus">
+            <option>未标记</option><option>进行中</option><option>已完成</option>
+            <option>暂停</option><option>已交付</option>
+          </select>
+        </label>
+        <label>客户 <input id="mClient" placeholder="如：北部湾银行"></label>
+        <label>截止日期 <input id="mDeadline" type="date"></label>
+      </div>
+      <label class="notes">备注 / 进展记录
+        <textarea id="mNotes" rows="5" placeholder="记录项目情况、下一步、关键结论…"></textarea>
+      </label>
+      <div class="row">
+        <button class="primary" onclick="saveMeta()">保存</button>
+        <button onclick="openFolder()">📂 打开项目文件夹</button>
+        <span id="mStat" class="dim"></span>
+      </div>
+      <h3>文件浏览</h3>
+      <div id="crumbs" class="crumbs"></div>
+      <div id="fileList" class="filelist"></div>
+    </div>
+  </div>
+</div>
+
+<div id="preview" class="mask hidden">
+  <div class="modal wide">
+    <div class="modal-head"><span id="pTitle"></span>
+      <span class="head-ops">
+        <button id="pNative" class="minibtn" onclick="openNative()">🖥 用系统程序打开</button>
+        <button class="minibtn" onclick="openSelect(CUR_PREVIEW)">📂 打开所在目录</button>
+        <button class="x" onclick="closePreview()">✕</button>
+      </span>
+    </div>
+    <div class="modal-body">
+      <pre id="pText" class="pretext"></pre>
+      <img id="pImg" class="pimg">
+      <iframe id="pPdf" class="ppdf"></iframe>
+      <div id="pFallback" class="empty hidden">该格式无法在线预览<br><button class="primary" onclick="openNative()">🖥 用系统程序打开</button></div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

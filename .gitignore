@@ -1,0 +1,8 @@
+# 运行时数据（含项目元数据与全文索引，禁止上传）
+*.db
+*.db-*
+*.sqlite
+server.log
+__pycache__/
+*.pyc
+nohup.out
