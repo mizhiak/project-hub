@@ -6,3 +6,6 @@ server.log
 __pycache__/
 *.pyc
 nohup.out
+
+preview-render.html
+projects.db
